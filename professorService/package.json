@@ -7,7 +7,7 @@
     "start-professor-service": "node index.js",
     "dev-professor-service": "nodemon index.js"
   },
-  "author": "Gunjan Kadu",
+  "author": "Deep Vadukiya",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.9",

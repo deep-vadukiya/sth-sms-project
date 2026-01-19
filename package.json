@@ -11,7 +11,7 @@
     "start:enrollmentService": "npm --prefix ./enrollmentService run dev-enrollment-service",
     "start:all": "concurrently --kill-others-on-fail -n authService,professorService,studentService,courseService,enrollmentService -c green,blue,magenta,cyan,yellow \"npm run start:authService\" \"npm run start:professorService\" \"npm run start:studentService\" \"npm run start:courseService\" \"npm run start:enrollmentService\""
   },
-  "author": "Gunjan Kadu",
+  "author": "Deep Vadukiya",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.1.2",

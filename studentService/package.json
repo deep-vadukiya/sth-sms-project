@@ -7,7 +7,7 @@
     "start-student-service": "node index.js",
     "dev-student-service": "nodemon index.js"
   },
-  "author": "Gunjan Kadu",
+  "author": "Deep Vadukiya",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.7",
