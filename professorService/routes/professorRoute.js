@@ -4,6 +4,7 @@ const Professor = require("../models/professor");
 const router = express.Router();
 
 // Create a new professor
+// verifyRole([ROLES.PROFESSOR])
 router.post("/", async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
@@ -35,6 +36,7 @@ router.post("/", async (req, res) => {
 });
 
 // Get all professors
+// verifyRole([ROLES.STUDENT || ROLES.PROFESSOR])
 router.get("/", async (req, res) => {
   try {
     const professors = await Professor.find(); // Exclude password
@@ -46,10 +48,11 @@ router.get("/", async (req, res) => {
 });
 
 // Get a specific professor by ID
+// verifyRole([ROLES.STUDENT || ROLES.PROFESSOR])
 router.get("/:id", async (req, res) => {
   try {
     const professor = await Professor.findById(req.params.id).select(
-      "-password"
+      "-password",
     );
 
     if (!professor) {
@@ -67,6 +70,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a professor
+// verifyRole([ROLES.PROFESSOR])
 router.put("/:id", async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
@@ -82,7 +86,7 @@ router.put("/:id", async (req, res) => {
       updatedData,
       {
         new: true,
-      }
+      },
     );
 
     if (!professor) {
@@ -99,6 +103,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a professor
+// verifyRole([ROLES.PROFESSOR])
 router.delete("/:id", async (req, res) => {
   try {
     const professor = await Professor.findByIdAndDelete(req.params.id);

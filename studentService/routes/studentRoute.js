@@ -7,7 +7,7 @@ const { ROLES } = require("../../consts");
 
 const router = express.Router();
 
-// verifyRole([ROLES.STUDENT]), //verifyRole([ROLES.AUTH_SERVICE])
+// verifyRole([ROLES.STUDENT])
 router.post("/", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//
+// verifyRole([ROLES.PROFESSOR])
 router.get("/", async (req, res) => {
   try {
     const students = await Student.find();
@@ -41,6 +41,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// verifyRole([ROLES.STUDENT || ROLES.PROFESSOR])
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -58,6 +59,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// verifyRole([ROLES.STUDENT])
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { name, email, password } = req.body;
@@ -80,6 +82,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// verifyRole([ROLES.STUDENT])
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
