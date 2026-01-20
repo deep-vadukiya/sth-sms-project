@@ -27,9 +27,15 @@ router.post("/student", async (req, res) => {
     const students = await fetchStudents();
     const student = students.find((s) => s.email === email);
 
-    // if (!student) {
-    //   return res.status(401).json({ message: "Invalid credentials" });
-    // }
+    if (!student) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, student.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     // const studentDatabase =
 
