@@ -14,11 +14,11 @@ dotenv.config();
 // Path to your private and public keys
 const privateKey = fs.readFileSync(
   path.join(__dirname, "../auth/keys/private.key"),
-  "utf8"
+  "utf8",
 );
 const publicKey = fs.readFileSync(
   path.join(__dirname, "../auth/keys/public.key"),
-  "utf8"
+  "utf8",
 );
 
 const kid = "1";
@@ -31,7 +31,14 @@ const customHeaders = {
 };
 
 // Generate a JWT using the private key
-function generateJWTWithPrivateKey(payload) {}
+function generateJWTWithPrivateKey(payload) {
+  const token = jwt.sign(payload, privateKey, {
+    algorithm: "RS256",
+    header: customHeaders,
+    expiresIn: "6h",
+  });
+  return token;
+}
 
 // JWT verification function
 function verifyJWTWithPublicKey(token) {}
