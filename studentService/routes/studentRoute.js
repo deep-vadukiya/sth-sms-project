@@ -37,7 +37,7 @@ router.post(
 // verifyRole([ROLES.PROFESSOR])
 router.get(
   "/",
-  verifyRole([ROLES.PROFESSOR, ROLES.ADMIN, ROLES.AUTH_SERVICE]),
+  verifyRole([ROLES.STUDENT, ROLES.PROFESSOR, ROLES.ADMIN, ROLES.AUTH_SERVICE]),
   async (req, res) => {
     try {
       const students = await Student.find();
