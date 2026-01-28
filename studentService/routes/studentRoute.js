@@ -4,6 +4,8 @@ const Student = require("../models/student");
 
 const { verifyRole, restrictStudentToOwnData } = require("./auth/util");
 const { ROLES } = require("../../consts");
+const { getCorrelationId } = require("../../correlationId");
+const { studentServiceLogger: logger } = require("../../logging");
 
 const router = express.Router();
 
@@ -47,10 +49,15 @@ router.get(
   async (req, res) => {
     try {
       const students = await Student.find();
+
+      logger.info("All student fetched ...!");
       res.status(200).json(students);
     } catch (error) {
-      console.log(error.message);
-      res.status(500).json({ message: "Unable to fetch students" });
+      logger.error(error);
+      res.status(500).json({
+        message: "Server Error: Unable to fetch students",
+        correlationId: getCorrelationId(),
+      });
     }
   },
 );
