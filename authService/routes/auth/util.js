@@ -58,7 +58,13 @@ async function fetchStudents() {
 }
 
 async function fetchProfessors() {
-  const response = await axios.get(PROFESSOR__SERVICE);
+  const token = generateJWTWithPrivateKey({
+    id: ROLES.AUTH_SERVICE,
+    roles: [ROLES.AUTH_SERVICE],
+  });
+  const response = await axios.get(PROFESSOR__SERVICE, {
+    headers: { Authorization: `Bearer ${token}`}
+  });
   return response.data;
 }
 module.exports = {
