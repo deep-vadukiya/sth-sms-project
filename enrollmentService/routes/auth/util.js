@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { ROLES, STUDENT_SERVICE, COURSE_SERVICE } = require("../../../consts");
+const { getCorrelationId } = require("../../../correlationId");
 // const { getCorrelationId } = require("../../../correlationId");
 
 dotenv.config();
@@ -146,6 +147,7 @@ async function fetchStudents() {
   const response = await axios.get(`${STUDENT_SERVICE}`, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "x-correlation-id": getCorrelationId(),
     },
   });
   return response.data;
@@ -159,6 +161,7 @@ async function fetchCourses() {
   const response = await axios.get(`${COURSE_SERVICE}`, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "x-correlation-id": getCorrelationId(),
     },
   });
   return response.data;

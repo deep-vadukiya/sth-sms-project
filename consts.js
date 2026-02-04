@@ -6,7 +6,7 @@ const STUDENT_SERVICE = "http://localhost:5003/api/students";
 
 const COURSE_SERVICE = "http://localhost:5004/api/courses";
 
-const ENROLLMENT_SERVICE = "http://localhost:5004/api/enrollment";
+const ENROLLMENT_SERVICE = "http://localhost:5005/api/enrollment";
 
 // roles.js
 const ROLES = Object.freeze({

@@ -4,6 +4,8 @@ const axios = require("axios");
 
 const { ROLES, AUTH_SERVICE, ENROLLMENT_SERVICE } = require("../../../consts");
 
+const rateLimit = require("express-rate-limit")
+
 dotenv.config();
 
 // const trustedDomain = [AUTH_SERVICE.split("api")[0]];
@@ -105,9 +107,21 @@ function verifyRole(requiredRoles) {
   };
 }
 
+const jwtRateLimiter = rateLimit({
+  windowMs: 60*1000,
+  max:10,
+  message:"Too many requests",
+  headers:true,
+  keyGenerator: (req) => req.user.id,
+  handler: (req, res) => {
+    res.status(429).json({message:"Too many requests"});
+  }
+});
+
 function restrictStudentToOwnData(req, res, next) {}
 
 module.exports = {
   verifyRole,
   restrictStudentToOwnData,
+  jwtRateLimiter
 };

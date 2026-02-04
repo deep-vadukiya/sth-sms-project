@@ -2,11 +2,10 @@ const express = require("express");
 
 const Student = require("../models/student");
 
-const { verifyRole, restrictStudentToOwnData } = require("./auth/util");
+const { verifyRole, restrictStudentToOwnData,jwtRateLimiter } = require("./auth/util");
 const { ROLES } = require("../../consts");
 const { getCorrelationId } = require("../../correlationId");
 const { studentServiceLogger: logger } = require("../../logging");
-
 const router = express.Router();
 
 // verifyRole([ROLES.STUDENT])
@@ -45,7 +44,8 @@ router.get(
     ROLES.ADMIN,
     ROLES.AUTH_SERVICE,
     ROLES.ENROLLMENT_SERVICE,
-  ]),
+  ],
+  jwtRateLimiter,),
   async (req, res) => {
     try {
       const students = await Student.find();
