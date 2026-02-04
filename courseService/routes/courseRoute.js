@@ -25,12 +25,7 @@ router.post(
 // Get all courses
 router.get(
   "/",
-  verifyRole([
-    ROLES.ADMIN,
-    ROLES.PROFESSOR,
-    ROLES.ENROLLMENT_SERVICE,
-    ROLES.ENROLLMENT_SERVICE,
-  ]),
+  verifyRole([ROLES.ADMIN, ROLES.PROFESSOR, ROLES.ENROLLMENT_SERVICE]),
   async (req, res) => {
     try {
       const courses = await Course.find();
