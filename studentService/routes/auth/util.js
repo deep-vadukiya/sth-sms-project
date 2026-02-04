@@ -1,12 +1,11 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const axios = require("axios");
+const rateLimit = require("express-rate-limit");
 
 const { ROLES, AUTH_SERVICE, ENROLLMENT_SERVICE } = require("../../../consts");
 
 dotenv.config();
-
-// const trustedDomain = [AUTH_SERVICE.split("api")[0]];
 
 const trustedDomain = [
   AUTH_SERVICE.split("api")[0],
@@ -105,9 +104,24 @@ function verifyRole(requiredRoles) {
   };
 }
 
+const JWTRateLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  message:
+    "Too many login attempts from this IP, please try again after a minute",
+  headers: true,
+  keyGenerator: (req, res) => req?.user?.id,
+  handler: (req, res) => {
+    res.status(429).json({
+      message: "Too many requests, please try again after a while",
+    });
+  },
+});
+
 function restrictStudentToOwnData(req, res, next) {}
 
 module.exports = {
   verifyRole,
   restrictStudentToOwnData,
+  JWTRateLimiter,
 };

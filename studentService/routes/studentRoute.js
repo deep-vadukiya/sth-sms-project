@@ -6,6 +6,7 @@ const { verifyRole, restrictStudentToOwnData } = require("./auth/util");
 const { ROLES } = require("../../consts");
 const { getCorrelationId } = require("../../correlationId");
 const { studentServiceLogger: logger } = require("../../logging");
+const { JWTRateLimiter } = require(".././routes/auth/util");
 
 const router = express.Router();
 
@@ -46,6 +47,7 @@ router.get(
     ROLES.AUTH_SERVICE,
     ROLES.ENROLLMENT_SERVICE,
   ]),
+  JWTRateLimiter,
   async (req, res) => {
     try {
       const students = await Student.find();
