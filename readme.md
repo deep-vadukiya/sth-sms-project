@@ -10,5 +10,5 @@
 4. Madhusha Fernandes: 100004835
 5. Jeevitha Kariyajjanavaru Ramesh: 100004411
 
-REST API Implementation for implemenatation for Student Management System.
+REST API Implementation for implemenatation for Student Management System
 Role-based Authentication
