@@ -9,3 +9,7 @@
 3. Darshan Kareliya: 100004372
 4. Madhusha Fernandes: 100004835
 5. Jeevitha Kariyajjanavaru Ramesh: 100004411
+
+- REST API Implementation for implemenatation of Different microservices.
+- Role-based Authentication and Authorization.
+- Logging using Kibana.
