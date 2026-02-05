@@ -11,6 +11,10 @@ const trustedDomain = [
   AUTH_SERVICE.split("api")[0],
   ENROLLMENT_SERVICE.split("api")[0],
 ];
+const trustedDomain = [
+  AUTH_SERVICE.split("api")[0],
+  ENROLLMENT_SERVICE.split("api")[0],
+];
 
 /**
  * Fetch the JWKS from a given URI.
@@ -51,6 +55,9 @@ async function verifyJWTWithJWKS(token) {
     throw new Error("JWT header is missing 'kid' or 'jku'");
   }
 
+  if (!trustedDomain.includes(jku.split(".well")[0])) {
+    throw new Error("Domain not supported");
+  }
   if (!trustedDomain.includes(jku.split(".well")[0])) {
     throw new Error("Domain not supported");
   }
@@ -104,17 +111,14 @@ function verifyRole(requiredRoles) {
   };
 }
 
-const JWTRateLimiter = rateLimit({
+const jwtRatelimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 10,
-  message:
-    "Too many login attempts from this IP, please try again after a minute",
+  message: "too many requests from this for student service",
   headers: true,
-  keyGenerator: (req, res) => req?.user?.id,
+  keyGenerator: (req) => req.user.id,
   handler: (req, res) => {
-    res.status(429).json({
-      message: "Too many requests, please try again after a while",
-    });
+    res.status(429).json({ message: "TOO MANY BRO, NOT THIS MUCH" });
   },
 });
 
@@ -123,5 +127,5 @@ function restrictStudentToOwnData(req, res, next) {}
 module.exports = {
   verifyRole,
   restrictStudentToOwnData,
-  JWTRateLimiter,
+  jwtRatelimiter
 };

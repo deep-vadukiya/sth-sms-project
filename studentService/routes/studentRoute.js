@@ -2,7 +2,11 @@ const express = require("express");
 
 const Student = require("../models/student");
 
-const { verifyRole, restrictStudentToOwnData } = require("./auth/util");
+const {
+  verifyRole,
+  restrictStudentToOwnData,
+  jwtRatelimiter,
+} = require("./auth/util");
 const { ROLES } = require("../../consts");
 const { getCorrelationId } = require("../../correlationId");
 const { studentServiceLogger: logger } = require("../../logging");
@@ -51,8 +55,7 @@ router.get(
   async (req, res) => {
     try {
       const students = await Student.find();
-
-      logger.info("All student fetched ...!");
+      logger.info("Fetched students");
       res.status(200).json(students);
     } catch (error) {
       logger.error(error);

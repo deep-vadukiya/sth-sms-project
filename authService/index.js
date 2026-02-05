@@ -9,8 +9,7 @@ const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
   windowMs: 60 * 1000,
   max: 10,
-  message:
-    "Too many login attempts from this IP, please try again after a minute",
+  message: "too many requests from this IP",
   headers: true,
 });
 
@@ -20,7 +19,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(limiter);
+// app.use(limiter);
 app.use(express.json());
 app.use(correlationIdMiddleware);
 

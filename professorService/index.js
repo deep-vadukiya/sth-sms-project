@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
 const professorRoute = require("./routes/professorRoute");
-const { correlationIdMiddleware } = require("../correlationId");
+const {correlationIdMiddleware} =require("../correlationId")
 
 dotenv.config();
 
@@ -15,6 +15,7 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+app.use(correlationIdMiddleware);
 app.use(correlationIdMiddleware);
 
 app.use("/api/professors", professorRoute);

@@ -13,6 +13,7 @@ connectDB();
 
 app.use(express.json());
 app.use(correlationIdMiddleware);
+app.use(correlationIdMiddleware);
 
 app.use("/api/students", studentRoutes);
 
