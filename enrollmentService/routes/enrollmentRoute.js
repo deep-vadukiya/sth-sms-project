@@ -11,7 +11,6 @@ const {
   fetchCourses,
 } = require("./auth/util");
 const { ROLES } = require("../../consts");
-const { getCorrelationId } = require("../../correlationId");
 
 // Create a new enrollment
 router.post(
@@ -20,7 +19,7 @@ router.post(
   async (req, res) => {
     try {
       const { student, course } = req.body;
-
+console.log(req.body);
       // Ensure both student and course IDs are provided
       if (!student || !course) {
         return res
@@ -29,6 +28,7 @@ router.post(
       }
 
       const students = await fetchStudents();
+      console.log(students);
       const existingStudent = students.find((s) => s._id === student);
       if (!existingStudent) {
         return res.status(404).json({ message: "Student not found" });
@@ -40,6 +40,7 @@ router.post(
         return res.status(404).json({ message: "Course not found" });
       }
 
+      console.log("Creating enrollment for student:", student, "in course:", course);
       // Attempt to create the Enrollment
       const enrollment = new Enrollment({ student, course });
       await enrollment.save();
@@ -56,7 +57,6 @@ router.post(
 
       res.status(error.status || 500).json({
         message: error.message || "Unable to create enrollement",
-        correlationId: getCorrelationId(),
       });
     }
   },

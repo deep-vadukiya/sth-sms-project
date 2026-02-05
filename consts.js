@@ -2,11 +2,11 @@ const AUTH_SERVICE = "http://localhost:5001/api/login";
 
 const PROFESSOR__SERVICE = "http://localhost:5002/api/professors";
 
-const STUDENT_SERVICE = "http://localhost:5003/api/students";
+const STUDENT_SERVICE = "http://localhost:5006/api/students";
 
 const COURSE_SERVICE = "http://localhost:5004/api/courses";
 
-const ENROLLMENT_SERVICE = "http://localhost:5005/api/enrollment";
+const ENROLLMENT_SERVICE = "http://localhost:5005/api/enrollments";
 
 // roles.js
 const ROLES = Object.freeze({
@@ -22,6 +22,6 @@ module.exports = {
   STUDENT_SERVICE,
   PROFESSOR__SERVICE,
   COURSE_SERVICE,
-  ENROLLMENT_SERVICE,
   ROLES,
+  ENROLLMENT_SERVICE
 };

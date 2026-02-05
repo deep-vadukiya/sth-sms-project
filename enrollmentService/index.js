@@ -5,7 +5,6 @@ const connectDB = require("./config/db");
 const enrollmentRoutes = require("./routes/enrollmentRoute");
 
 const publicKeyRoute = require("./routes/auth/publicKeyRoute");
-const { correlationIdMiddleware } = require("../correlationId");
 
 dotenv.config();
 
@@ -17,7 +16,6 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-app.use(correlationIdMiddleware);
 
 app.use("/.well-known/jwks.json", publicKeyRoute);
 app.use("/api/enrollments", enrollmentRoutes);

@@ -1,11 +1,8 @@
-# Software Architecture and Development
+Guten Tag,
 
-## Group 01
+Name - Jeevitha Kariyajjanavaru Ramesh
+Matriculation Number - 100004411
+Course - Software Architecture and development
+Group Task- Have worked on complete 
 
-### Group Members
-
-1. Deep Vadukiya: 100004401
-2. Edwin Vincent: 100003257
-3. Darshan Kareliya: 100004372
-4. Madhusha Fernandes: 100004835
-5. Jeevitha Kariyajjanavaru Ramesh: 100004411
+Thank you

@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const axios = require("axios");
-const { ROLES } = require("../../../consts");
+const { ROLES, AUTH_SERVICE } = require("../../../consts");
 
 dotenv.config();
+
+const trustedDomain = [AUTH_SERVICE.split("api")[0]];
 
 /**
  * Fetch the JWKS from a given URI.
@@ -35,13 +37,16 @@ function getPublicKeyFromJWKS(kid, keys) {
  * @returns {Promise<object>} - A promise that resolves to the decoded JWT payload.
  */
 async function verifyJWTWithJWKS(token) {
-  console.log(token);
   const decodedHeader = jwt.decode(token, { complete: true }).header;
   const { kid, alg, jku } = decodedHeader;
 
   if (!kid || !jku) {
     throw new Error("JWT header is missing 'kid' or 'jku'");
   }
+
+  //   if (!trustedDomain.includes(jku.split(".well")[0])) {
+  //     throw new Error("Domain not supported");
+  //   }
 
   if (alg !== "RS256") {
     throw new Error(`Unsupported algorithm: ${alg}`);

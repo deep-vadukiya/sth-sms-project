@@ -1,15 +1,11 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const axios = require("axios");
-
 const { ROLES, AUTH_SERVICE, ENROLLMENT_SERVICE } = require("../../../consts");
 
 dotenv.config();
 
-const trustedDomain = [
-  AUTH_SERVICE.split("api")[0],
-  ENROLLMENT_SERVICE.split("api")[0],
-];
+const trustedDomain = [AUTH_SERVICE.split("api")[0], ENROLLMENT_SERVICE.split("api")[0]];
 
 /**
  * Fetch the JWKS from a given URI.
@@ -84,7 +80,7 @@ function verifyRole(requiredRoles) {
       // Step 2: Check if the user has any of the required roles
       const userRoles = req.user.roles || [];
       const hasRequiredRole = userRoles.some((role) =>
-        requiredRoles.includes(role),
+        requiredRoles.includes(role)
       );
       if (hasRequiredRole) {
         return next(); // User has at least one of the required roles, so proceed

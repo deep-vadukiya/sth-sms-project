@@ -1,16 +1,14 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const axios = require("axios");
-const rateLimit = require("express-rate-limit");
+const rateLimit = require('express-rate-limit');
 
 const { ROLES, AUTH_SERVICE, ENROLLMENT_SERVICE } = require("../../../consts");
 
+
 dotenv.config();
 
-const trustedDomain = [
-  AUTH_SERVICE.split("api")[0],
-  ENROLLMENT_SERVICE.split("api")[0],
-];
+const trustedDomain = [AUTH_SERVICE.split("api")[0], ENROLLMENT_SERVICE.split("api")[0]];
 
 /**
  * Fetch the JWKS from a given URI.
@@ -86,7 +84,7 @@ function verifyRole(requiredRoles) {
       // The some() method of Array instances tests whether at least one element in the array passes the test implemented by the provided function.
       const userRoles = req.user.roles || [];
       const hasRequiredRole = userRoles.some((role) =>
-        requiredRoles.includes(role),
+        requiredRoles.includes(role)
       );
       if (hasRequiredRole) {
         return next(); // User has at least one of the required roles, so proceed
@@ -104,24 +102,24 @@ function verifyRole(requiredRoles) {
   };
 }
 
-const JWTRateLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 10,
-  message:
-    "Too many login attempts from this IP, please try again after a minute",
-  headers: true,
-  keyGenerator: (req, res) => req?.user?.id,
-  handler: (req, res) => {
+const jwtRateLimiter =rateLimit({
+  windowMs:60*1000,
+  max:10,
+  message: 'Too many request from this IP in Student Service',
+  headers:true,
+  keyGenerator: (req)=>req.user.id,
+  handler:(req,res)=>{
     res.status(429).json({
-      message: "Too many requests, please try again after a while",
-    });
-  },
-});
+      message:"Too many Requests happen"
+    })
+  }
+})
 
-function restrictStudentToOwnData(req, res, next) {}
+
+function restrictStudentToOwnData(req, res, next) { }
 
 module.exports = {
   verifyRole,
   restrictStudentToOwnData,
-  JWTRateLimiter,
+  jwtRateLimiter,
 };

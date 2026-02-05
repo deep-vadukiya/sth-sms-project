@@ -45,28 +45,33 @@ function verifyJWTWithPublicKey(token) {}
 
 async function fetchStudents() {
   const token = generateJWTWithPrivateKey({
-    id: ROLES.AUTH_SERVICE,
     roles: [ROLES.AUTH_SERVICE],
   });
 
-  console.log({ token });
-
+  // const response = await axios.get(STUDENT_SERVICE);
   const response = await axios.get(STUDENT_SERVICE, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  console.log("Students response:", response.data);
   return response.data;
 }
 
 async function fetchProfessors() {
-  const token = generateJWTWithPrivateKey({
-    id: ROLES.AUTH_SERVICE,
+const token = generateJWTWithPrivateKey({
     roles: [ROLES.AUTH_SERVICE],
   });
+
   const response = await axios.get(PROFESSOR__SERVICE, {
-    headers: { Authorization: `Bearer ${token}`}
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return response.data;
 }
+
 module.exports = {
   kid,
   generateJWTWithPrivateKey,

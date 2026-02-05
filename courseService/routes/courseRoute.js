@@ -19,13 +19,13 @@ router.post(
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
-  },
+  }
 );
 
 // Get all courses
 router.get(
   "/",
-  verifyRole([ROLES.ADMIN, ROLES.PROFESSOR, ROLES.ENROLLMENT_SERVICE]),
+  verifyRole([ROLES.ADMIN, ROLES.PROFESSOR, ROLES.ENROLLMENT_SERVICE, ROLES.ENROLLMENT_SERVICE]),
   async (req, res) => {
     try {
       const courses = await Course.find();
@@ -33,7 +33,7 @@ router.get(
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  },
+  }
 );
 
 // Get a single course by ID
@@ -50,7 +50,7 @@ router.get(
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  },
+  }
 );
 
 // Update a course by ID
@@ -74,7 +74,7 @@ router.put(
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
-  },
+  }
 );
 
 // DELETE a course by ID
@@ -108,7 +108,7 @@ router.delete(
         .status(500)
         .json({ message: "Server Error: Unable to delete course" });
     }
-  },
+  }
 );
 
 module.exports = router;
