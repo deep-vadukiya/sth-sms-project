@@ -10,3 +10,9 @@
 4. Madhusha Fernandes: 100004835
 5. Jeevitha Kariyajjanavaru Ramesh: 100004411
 
+Features:
+
+- Implementation of Student Management System using Microservices architechture using REST API
+- Implemented Security using jwt authentication and Role based Authorization
+- Implemented Logging using Kibana Elastic Search.
+
